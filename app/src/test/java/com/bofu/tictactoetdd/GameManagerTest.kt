@@ -33,7 +33,7 @@ class GameManagerTest {
         val state = gameManager.state
         state.forEach{row -> row
             row.forEach { column -> column
-                Truth.assertThat(column).isEqualTo("O")
+                Truth.assertThat(column).isEqualTo(0)
             }
         }
     }
