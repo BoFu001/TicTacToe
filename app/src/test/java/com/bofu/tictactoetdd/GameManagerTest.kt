@@ -57,6 +57,12 @@ class GameManagerTest {
     @Test
     fun resetTest(){
         gameManager.reset()
+        val state = gameManager.state
+        state.forEach{row -> row
+            row.forEach { column -> column
+                Truth.assertThat(column).isEqualTo(0)
+            }
+        }
     }
 
     @Test

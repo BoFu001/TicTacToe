@@ -66,4 +66,12 @@ class GameManager {
         }
         return stateRotated
     }
+
+    fun reset() {
+        state = arrayOf(
+            intArrayOf(0, 0, 0),
+            intArrayOf(0, 0, 0),
+            intArrayOf(0, 0, 0)
+        )
+    }
 }
