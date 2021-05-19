@@ -73,22 +73,60 @@ class GameManagerTest {
         val case1 = gameManager.detectWinCase()
         Truth.assertThat(case1).isEqualTo(RedLine.HORIZONTAL_UP)
 
-        //gameManager.reset()
+        gameManager.reset()
+
+        for (column in gameManager.state[1].indices){
+            gameManager.state[1][column] = gameManager.currentPlayer
+        }
+        val case2 = gameManager.detectWinCase()
+        Truth.assertThat(case2).isEqualTo(RedLine.HORIZONTAL_MIDDLE)
+
+        gameManager.reset()
+
+        for (column in gameManager.state[2].indices){
+            gameManager.state[2][column] = gameManager.currentPlayer
+        }
+        val case3 = gameManager.detectWinCase()
+        Truth.assertThat(case3).isEqualTo(RedLine.HORIZONTAL_DOWN)
     }
 
     @Test
     fun detectVerticalWinCaseTest(){
         for (row in gameManager.state.indices){
-            for(column in gameManager.state[row]){
+            for(column in gameManager.state[row].indices){
                 if (column == 0){
                     gameManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
-        val case2 = gameManager.detectWinCase()
-        Truth.assertThat(case2).isEqualTo(RedLine.VERTICAL_LEFT)
+        val case1 = gameManager.detectWinCase()
+        Truth.assertThat(case1).isEqualTo(RedLine.VERTICAL_LEFT)
 
-        //gameManager.reset()
+        gameManager.reset()
+
+        for (row in gameManager.state.indices){
+            for(column in gameManager.state[row].indices){
+                if (column == 1){
+                    gameManager.state[row][column] = gameManager.currentPlayer
+                }
+            }
+        }
+        val case2 = gameManager.detectWinCase()
+        Truth.assertThat(case2).isEqualTo(RedLine.VERTICAL_MIDDLE)
+
+        gameManager.reset()
+
+        for (row in gameManager.state.indices){
+            for(column in gameManager.state[row].indices){
+                if (column == 2){
+                    gameManager.state[row][column] = gameManager.currentPlayer
+                }
+            }
+        }
+        val case3 = gameManager.detectWinCase()
+        Truth.assertThat(case3).isEqualTo(RedLine.VERTICAL_RIGHT)
+
+        gameManager.reset()
     }
 
     @Test
