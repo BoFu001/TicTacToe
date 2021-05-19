@@ -23,15 +23,15 @@ class GameManager {
 
         // detect row
         for (row in state.indices) {
-            val hasWon = state[row].all { player -> player == currentPlayer }
-            if (hasWon) return RedLine.values()[row]
+            val hasDetected = state[row].all { player -> player == currentPlayer }
+            if (hasDetected) return RedLine.values()[row]
         }
 
         // detect column
         val stateRotated = rotation(state)
         for (row in stateRotated.indices) {
-            val hasWon = stateRotated[row].all { player -> player == currentPlayer }
-            if (hasWon) return RedLine.values()[row + 3]
+            val hasDetected = stateRotated[row].all { player -> player == currentPlayer }
+            if (hasDetected) return RedLine.values()[row + 3]
         }
 
         // detect diagonal left and right
@@ -44,10 +44,10 @@ class GameManager {
             }
         }
 
-        val hasWonLeft = diagonalLeft.all { player -> player == currentPlayer }
-        if (hasWonLeft) return RedLine.DIAGONAL_LEFT
-        val hasWonRight = diagonalRight.all { player -> player == currentPlayer }
-        if (hasWonRight) return RedLine.DIAGONAL_RIGHT
+        val hasDetectedLeft = diagonalLeft.all { player -> player == currentPlayer }
+        if (hasDetectedLeft) return RedLine.DIAGONAL_LEFT
+        val hasDetectedRight = diagonalRight.all { player -> player == currentPlayer }
+        if (hasDetectedRight) return RedLine.DIAGONAL_RIGHT
 
         return null
     }
@@ -75,7 +75,14 @@ class GameManager {
         )
     }
 
-    fun play(coordinate: Coordinate) {
-        state[coordinate.x][coordinate.y] = currentPlayer
+    fun play(coordinate: Coordinate): RedLine? {
+
+        val (x, y) = coordinate
+        state[x][y] = currentPlayer
+        val redLine = detectWinCase()
+        if(redLine == null){
+            alternatePlayer()
+        }
+        return redLine
     }
 }

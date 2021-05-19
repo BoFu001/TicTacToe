@@ -68,7 +68,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun btnPlayTest(){
+    fun btnClickTest(){
         onView(withId(R.id.btn_one)).perform(click())
         onView(withId(R.id.btn_one)).check(matches(withText("X")))
         onView(withId(R.id.btn_two)).perform(click())

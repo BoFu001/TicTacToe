@@ -156,12 +156,22 @@ class GameManagerTest {
 
     @Test
     fun playTest(){
-        val coordinate = Coordinate(0,0)
-        gameManager.play(coordinate)
+        val coordinate1 = Coordinate(0,0)
+        val detectedLine1 = gameManager.play(coordinate1)
 
-        val sign = gameManager.state[coordinate.x][coordinate.y]
-        Truth.assertThat(sign).isEqualTo(gameManager.currentPlayer)
+        val sign1 = gameManager.state[coordinate1.x][coordinate1.y]
+        if (detectedLine1 != null){
+            Truth.assertThat(sign1).isEqualTo(gameManager.currentPlayer)
+        }
 
+
+        val coordinate2 = Coordinate(1,1)
+        val detectedLine2 = gameManager.play(coordinate2)
+
+        val sign2 = gameManager.state[coordinate2.x][coordinate2.y]
+        if (detectedLine2 != null) {
+            Truth.assertThat(sign2).isEqualTo(gameManager.currentPlayer)
+        }
     }
 
 }
