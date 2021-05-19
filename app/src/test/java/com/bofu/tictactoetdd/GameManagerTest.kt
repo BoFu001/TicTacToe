@@ -177,18 +177,20 @@ class GameManagerTest {
     @Test
     fun isInProgressTest(){
 
+        val isInProgress1 = gameManager.isInProgress()
+        Truth.assertThat(isInProgress1).isEqualTo(true)
+
+
         for (row in gameManager.state.indices){
             for(column in gameManager.state[row].indices){
                 gameManager.state[row][column] = 1
             }
         }
-
-        val isInProgress = gameManager.isInProgress()
-        Truth.assertThat(isInProgress).isEqualTo(false)
+        val isInProgress2 = gameManager.isInProgress()
+        Truth.assertThat(isInProgress2).isEqualTo(false)
 
         gameManager.state[0][0] = 0
-        Truth.assertThat(isInProgress).isEqualTo(true)
-        println("aaa: " + Gson().toJson(gameManager.state))
-
+        val isInProgress3 = gameManager.isInProgress()
+        Truth.assertThat(isInProgress3).isEqualTo(true)
     }
 }

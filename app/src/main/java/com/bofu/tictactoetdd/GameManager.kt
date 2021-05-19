@@ -85,4 +85,9 @@ class GameManager {
         }
         return redLine
     }
+
+    fun isInProgress(): Boolean{
+        println("kkk: " + state.any { row -> row.any { column -> column == 0 } })
+        return state.any { row -> row.any { column -> column == 0 } }
+    }
 }
