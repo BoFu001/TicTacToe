@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.bofu.tictactoetdd"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -58,4 +58,6 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidx_test"
     androidTestImplementation "androidx.test:core:$androidx_test"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test"
+
+    testImplementation 'org.mockito:mockito-core:2.21.0'
 }

@@ -1,9 +1,12 @@
 package com.bofu.tictactoetdd
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import org.junit.Rule
@@ -62,5 +65,11 @@ class MainActivityTest {
     @Test
     fun btnNineTest(){
         onView(withId(R.id.btn_nine)).check(matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun btnOnePlayTest(){
+        onView(withId(R.id.btn_one)).perform(click())
+        onView(withId(R.id.btn_one)).check(matches(withText("A")))
     }
 }
