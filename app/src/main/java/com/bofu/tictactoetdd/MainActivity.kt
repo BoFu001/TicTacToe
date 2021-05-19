@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val TAG: String = javaClass.simpleName
     private val gameManager: GameManager by lazy { GameManager() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

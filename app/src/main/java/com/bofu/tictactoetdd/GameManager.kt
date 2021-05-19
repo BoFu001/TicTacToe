@@ -1,7 +1,5 @@
 package com.bofu.tictactoetdd
 
-import com.google.gson.Gson
-
 class GameManager {
 
     var currentPlayer = 1
@@ -87,7 +85,6 @@ class GameManager {
     }
 
     fun isInProgress(): Boolean{
-        println("kkk: " + state.any { row -> row.any { column -> column == 0 } })
         return state.any { row -> row.any { column -> column == 0 } }
     }
 }
