@@ -74,4 +74,8 @@ class GameManager {
             intArrayOf(0, 0, 0)
         )
     }
+
+    fun play(coordinate: Coordinate) {
+        state[coordinate.x][coordinate.y] = currentPlayer
+    }
 }

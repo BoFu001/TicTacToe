@@ -159,7 +159,7 @@ class GameManagerTest {
         val coordinate = Coordinate(0,0)
         gameManager.play(coordinate)
 
-        val sign = gameManager.state[coordinate.x ,coordinate.y]
+        val sign = gameManager.state[coordinate.x][coordinate.y]
         Truth.assertThat(sign).isEqualTo(gameManager.currentPlayer)
 
     }
