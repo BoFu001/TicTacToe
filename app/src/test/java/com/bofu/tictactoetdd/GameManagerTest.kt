@@ -126,7 +126,6 @@ class GameManagerTest {
         val case3 = gameManager.detectWinCase()
         Truth.assertThat(case3).isEqualTo(RedLine.VERTICAL_RIGHT)
 
-        gameManager.reset()
     }
 
     @Test
@@ -153,6 +152,16 @@ class GameManagerTest {
         }
         val case4 = gameManager.detectWinCase()
         Truth.assertThat(case4).isEqualTo(RedLine.DIAGONAL_RIGHT)
+    }
+
+    @Test
+    fun playTest(){
+        val coordinate = Coordinate(0,0)
+        gameManager.play(coordinate)
+
+        val sign = gameManager.state[coordinate.x ,coordinate.y]
+        Truth.assertThat(sign).isEqualTo(gameManager.currentPlayer)
+
     }
 
 }
