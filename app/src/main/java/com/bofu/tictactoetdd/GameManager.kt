@@ -19,19 +19,19 @@ class GameManager {
         currentPlayer = 3 - currentPlayer
     }
 
-    fun detectWinCase(): String? {
+    fun detectWinCase(): RedLine? {
 
         // detect row
         for (row in state.indices) {
             val hasWon = state[row].all { player -> player == currentPlayer }
-            if (hasWon) return "Horizontal"
+            if (hasWon) return RedLine.values()[row]
         }
 
         // detect column
         val stateRotated = rotation(state)
         for (row in stateRotated.indices) {
             val hasWon = stateRotated[row].all { player -> player == currentPlayer }
-            if (hasWon) return "Vertical"
+            if (hasWon) return RedLine.values()[row + 3]
         }
 
         // detect diagonal left and right
@@ -45,9 +45,9 @@ class GameManager {
         }
 
         val hasWonLeft = diagonalLeft.all { player -> player == currentPlayer }
-        if (hasWonLeft) return "DiagonalLeft"
+        if (hasWonLeft) return RedLine.DIAGONAL_LEFT
         val hasWonRight = diagonalRight.all { player -> player == currentPlayer }
-        if (hasWonRight) return "DiagonalRight"
+        if (hasWonRight) return RedLine.DIAGONAL_RIGHT
 
         return null
     }

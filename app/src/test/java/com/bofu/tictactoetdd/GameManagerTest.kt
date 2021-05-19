@@ -55,12 +55,17 @@ class GameManagerTest {
     }
 
     @Test
+    fun resetTest(){
+        gameManager.reset()
+    }
+
+    @Test
     fun detectHorizontalWinCaseTest(){
         for (column in gameManager.state[0].indices){
             gameManager.state[0][column] = gameManager.currentPlayer
         }
         val case1 = gameManager.detectWinCase()
-        Truth.assertThat(case1).isEqualTo("Horizontal")
+        Truth.assertThat(case1).isEqualTo(RedLine.HORIZONTAL_UP)
 
         //gameManager.reset()
     }
@@ -75,7 +80,7 @@ class GameManagerTest {
             }
         }
         val case2 = gameManager.detectWinCase()
-        Truth.assertThat(case2).isEqualTo("Vertical")
+        Truth.assertThat(case2).isEqualTo(RedLine.VERTICAL_LEFT)
 
         //gameManager.reset()
     }
@@ -90,7 +95,7 @@ class GameManagerTest {
             }
         }
         val case3 = gameManager.detectWinCase()
-        Truth.assertThat(case3).isEqualTo("DiagonalLeft")
+        Truth.assertThat(case3).isEqualTo(RedLine.DIAGONAL_LEFT)
     }
 
     @Test
@@ -103,7 +108,7 @@ class GameManagerTest {
             }
         }
         val case4 = gameManager.detectWinCase()
-        Truth.assertThat(case4).isEqualTo("DiagonalRight")
+        Truth.assertThat(case4).isEqualTo(RedLine.DIAGONAL_RIGHT)
     }
 
 }
