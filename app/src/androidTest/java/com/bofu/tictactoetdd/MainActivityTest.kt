@@ -5,8 +5,7 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import org.junit.Rule
@@ -83,9 +82,20 @@ class MainActivityTest {
         onView(withId(R.id.btn_six)).check(matches(withText("O")))
         onView(withId(R.id.btn_seven)).perform(click())
         onView(withId(R.id.btn_seven)).check(matches(withText("X")))
-        onView(withId(R.id.btn_eight)).perform(click())
-        onView(withId(R.id.btn_eight)).check(matches(withText("O")))
-        onView(withId(R.id.btn_nine)).perform(click())
-        onView(withId(R.id.btn_nine)).check(matches(withText("X")))
+    }
+
+    @Test
+    fun btnNewGameVisibilityTest(){
+        onView(withId(R.id.btn_new_game)).check(matches(
+            withEffectiveVisibility(Visibility.INVISIBLE)
+        ))
+        onView(withId(R.id.btn_one)).perform(click())
+        onView(withId(R.id.btn_two)).perform(click())
+        onView(withId(R.id.btn_four)).perform(click())
+        onView(withId(R.id.btn_five)).perform(click())
+        onView(withId(R.id.btn_seven)).perform(click())
+        onView(withId(R.id.btn_new_game)).check(matches(
+            withEffectiveVisibility(Visibility.VISIBLE)
+        ))
     }
 }

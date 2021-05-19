@@ -3,6 +3,7 @@ package com.bofu.tictactoetdd
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -29,6 +30,19 @@ class MainActivity : AppCompatActivity() {
         btn_seven.setOnClickListener{ onBtnClick(btn_seven, Coordinate(2,0))}
         btn_eight.setOnClickListener{ onBtnClick(btn_eight, Coordinate(2,1))}
         btn_nine.setOnClickListener{ onBtnClick(btn_nine, Coordinate(2,2))}
+
+        btn_new_game.setOnClickListener {
+            showNewGameBtn(false)
+            gameManager.reset()
+            clean()
+        }
+    }
+
+    private fun showNewGameBtn(bool: Boolean) {
+        when (bool){
+            true -> btn_new_game.visibility = View.VISIBLE
+            false -> btn_new_game.visibility = View.INVISIBLE
+        }
     }
 
     private fun onBtnClick(btn: TextView, coordinate: Coordinate){
@@ -39,9 +53,11 @@ class MainActivity : AppCompatActivity() {
                 enableBtn(false)
                 showRedLine(redLine)
                 Toast.makeText(this, "${gameManager.currentPlayerMark} Win!", Toast.LENGTH_LONG).show()
+                showNewGameBtn(true)
             } else {
                 if(!gameManager.isInProgress()) {
                     Toast.makeText(this, "Draw!", Toast.LENGTH_LONG).show()
+                    showNewGameBtn(true)
                 }
             }
         }
@@ -74,5 +90,27 @@ class MainActivity : AppCompatActivity() {
         btn_seven.isEnabled = bool
         btn_eight.isEnabled = bool
         btn_nine.isEnabled = bool
+    }
+
+    private fun clean() {
+        btn_one.text = ""
+        btn_two.text = ""
+        btn_three.text = ""
+        btn_four.text = ""
+        btn_five.text = ""
+        btn_six.text = ""
+        btn_seven.text = ""
+        btn_eight.text = ""
+        btn_nine.text = ""
+        btn_one.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_two.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_three.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_six.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        btn_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        enableBtn(true)
     }
 }
