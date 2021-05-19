@@ -26,6 +26,15 @@ class GameManagerTest {
     }
 
     @Test
+    fun playerMarkInProgressTest(){
+        Truth.assertThat(gameManager.currentPlayerMark).isEqualTo("X")
+        gameManager.alternatePlayer()
+        Truth.assertThat(gameManager.currentPlayerMark).isEqualTo("O")
+        gameManager.alternatePlayer()
+        Truth.assertThat(gameManager.currentPlayerMark).isEqualTo("X")
+    }
+
+    @Test
     fun alternatePlayerTest(){
         Truth.assertThat(gameManager.currentPlayer).isEqualTo(1)
         gameManager.alternatePlayer()
