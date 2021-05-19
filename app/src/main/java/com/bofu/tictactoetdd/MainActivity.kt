@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,13 +37,27 @@ class MainActivity : AppCompatActivity() {
             val redLine = gameManager.play(coordinate)
             if(redLine != null){
                 enableBtn(false)
-                Log.d(TAG, "redLine: " + redLine)
+                showRedLine(redLine)
+                Toast.makeText(this, "${gameManager.currentPlayerMark} win!", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun showRedLine(redLine: RedLine) {
+        val (rows, background) = when (redLine) {
+            RedLine.HORIZONTAL_UP -> Pair(listOf(btn_one, btn_two, btn_three), R.drawable.ic_horizontal)
+            RedLine.HORIZONTAL_MIDDLE -> Pair(listOf(btn_four, btn_five, btn_six), R.drawable.ic_horizontal)
+            RedLine.HORIZONTAL_DOWN -> Pair(listOf(btn_seven, btn_eight, btn_nine), R.drawable.ic_horizontal)
+            RedLine.VERTICAL_LEFT -> Pair(listOf(btn_one, btn_four, btn_seven), R.drawable.ic_vertical)
+            RedLine.VERTICAL_MIDDLE -> Pair(listOf(btn_two, btn_five, btn_eight), R.drawable.ic_vertical)
+            RedLine.VERTICAL_RIGHT -> Pair(listOf(btn_three, btn_six, btn_nine), R.drawable.ic_vertical)
+            RedLine.DIAGONAL_LEFT -> Pair(listOf(btn_one, btn_five, btn_nine), R.drawable.ic_diagonal_left)
+            RedLine.DIAGONAL_RIGHT -> Pair(listOf(btn_three, btn_five, btn_seven), R.drawable.ic_diagonal_right)
+        }
 
+        rows.forEach {
+            it.background = ContextCompat.getDrawable(this, background)
+        }
     }
 
     private fun enableBtn(bool: Boolean) {
