@@ -70,6 +70,8 @@ class MainActivityTest {
     @Test
     fun btnOnePlayTest(){
         onView(withId(R.id.btn_one)).perform(click())
-        onView(withId(R.id.btn_one)).check(matches(withText("A")))
+        onView(withId(R.id.btn_one)).check(matches(withText("X")))
+        onView(withId(R.id.btn_two)).perform(click())
+        onView(withId(R.id.btn_two)).check(matches(withText("O")))
     }
 }
