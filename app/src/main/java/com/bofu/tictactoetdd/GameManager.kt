@@ -1,5 +1,7 @@
 package com.bofu.tictactoetdd
 
+import com.google.gson.Gson
+
 class GameManager {
 
     var currentPlayer = 1
@@ -31,6 +33,21 @@ class GameManager {
             val hasWon = stateRotated[row].all { player -> player == currentPlayer }
             if (hasWon) return "Vertical"
         }
+
+        // detect diagonal left and right
+        val diagonalLeft = intArrayOf(0, 0, 0)
+        val diagonalRight = intArrayOf(0, 0, 0)
+        for (row in state.indices) {
+            for (column in state[row].indices) {
+                if (row == column){ diagonalLeft[row] = state[row][column] }
+                if (row == (state[row].lastIndex - column)){ diagonalRight[row] = state[row][column] }
+            }
+        }
+
+        val hasWonLeft = diagonalLeft.all { player -> player == currentPlayer }
+        if (hasWonLeft) return "DiagonalLeft"
+        val hasWonRight = diagonalRight.all { player -> player == currentPlayer }
+        if (hasWonRight) return "DiagonalRight"
 
         return null
     }

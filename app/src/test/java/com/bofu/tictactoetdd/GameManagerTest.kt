@@ -1,6 +1,7 @@
 package com.bofu.tictactoetdd
 
 import com.google.common.truth.Truth
+import com.google.gson.Gson
 import org.junit.Before
 import org.junit.Test
 
@@ -82,7 +83,7 @@ class GameManagerTest {
     @Test
     fun detectLeftDiagonalWinCaseTest(){
         for (row in gameManager.state.indices){
-            for(column in gameManager.state[row]){
+            for(column in gameManager.state[row].indices){
                 if (column == row){
                     gameManager.state[row][column] = gameManager.currentPlayer
                 }
@@ -90,22 +91,19 @@ class GameManagerTest {
         }
         val case3 = gameManager.detectWinCase()
         Truth.assertThat(case3).isEqualTo("DiagonalLeft")
-
-        //gameManager.reset()
     }
 
     @Test
     fun detectRightDiagonalWinCaseTest(){
         for (row in gameManager.state.indices){
-            for(column in gameManager.state[row]){
-                if (column == gameManager.state[row].lastIndex - column){
+            for(column in gameManager.state[row].indices){
+                if (row == gameManager.state[row].lastIndex - column){
                     gameManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
         val case4 = gameManager.detectWinCase()
         Truth.assertThat(case4).isEqualTo("DiagonalRight")
-        //gameManager.reset()
     }
 
 }
