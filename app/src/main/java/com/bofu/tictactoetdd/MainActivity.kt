@@ -38,7 +38,11 @@ class MainActivity : AppCompatActivity() {
             if(redLine != null){
                 enableBtn(false)
                 showRedLine(redLine)
-                Toast.makeText(this, "${gameManager.currentPlayerMark} win!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "${gameManager.currentPlayerMark} Win!", Toast.LENGTH_LONG).show()
+            } else {
+                if(!gameManager.isInProgress()) {
+                    Toast.makeText(this, "Draw!", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
