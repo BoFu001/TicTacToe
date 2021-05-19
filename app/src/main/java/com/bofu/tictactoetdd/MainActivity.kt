@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             btn.text = gameManager.currentPlayerMark
             val redLine = gameManager.play(coordinate)
             if(redLine != null){
+                enableBtn(false)
                 Log.d(TAG, "redLine: " + redLine)
             }
         }
@@ -41,5 +42,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRedLine(redLine: RedLine) {
 
+    }
+
+    private fun enableBtn(bool: Boolean) {
+        btn_one.isEnabled = bool
+        btn_two.isEnabled = bool
+        btn_three.isEnabled = bool
+        btn_four.isEnabled = bool
+        btn_five.isEnabled = bool
+        btn_six.isEnabled = bool
+        btn_seven.isEnabled = bool
+        btn_eight.isEnabled = bool
+        btn_nine.isEnabled = bool
     }
 }
