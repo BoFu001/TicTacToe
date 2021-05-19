@@ -68,10 +68,24 @@ class MainActivityTest {
     }
 
     @Test
-    fun btnOnePlayTest(){
+    fun btnPlayTest(){
         onView(withId(R.id.btn_one)).perform(click())
         onView(withId(R.id.btn_one)).check(matches(withText("X")))
         onView(withId(R.id.btn_two)).perform(click())
         onView(withId(R.id.btn_two)).check(matches(withText("O")))
+        onView(withId(R.id.btn_three)).perform(click())
+        onView(withId(R.id.btn_three)).check(matches(withText("X")))
+        onView(withId(R.id.btn_four)).perform(click())
+        onView(withId(R.id.btn_four)).check(matches(withText("O")))
+        onView(withId(R.id.btn_five)).perform(click())
+        onView(withId(R.id.btn_five)).check(matches(withText("X")))
+        onView(withId(R.id.btn_six)).perform(click())
+        onView(withId(R.id.btn_six)).check(matches(withText("O")))
+        onView(withId(R.id.btn_seven)).perform(click())
+        onView(withId(R.id.btn_seven)).check(matches(withText("X")))
+        onView(withId(R.id.btn_eight)).perform(click())
+        onView(withId(R.id.btn_eight)).check(matches(withText("O")))
+        onView(withId(R.id.btn_nine)).perform(click())
+        onView(withId(R.id.btn_nine)).check(matches(withText("X")))
     }
 }
