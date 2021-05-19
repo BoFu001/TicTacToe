@@ -20,47 +20,47 @@ class MainActivityTest {
 
 
     @Test
-    fun AreBtnOneInView(){
+    fun btnOneTest(){
         onView(withId(R.id.btn_one)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnTwoInView(){
+    fun btnTwoTest(){
         onView(withId(R.id.btn_two)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnThreeInView(){
+    fun btnThreeTest(){
         onView(withId(R.id.btn_three)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnFourInView(){
+    fun btnFourTest(){
         onView(withId(R.id.btn_four)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnFiveInView(){
+    fun btnFiveTest(){
         onView(withId(R.id.btn_five)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnSixInView(){
+    fun btnSixTest(){
         onView(withId(R.id.btn_six)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnSevenInView(){
+    fun btnSevenTest(){
         onView(withId(R.id.btn_seven)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnEightInView(){
+    fun btnEightTest(){
         onView(withId(R.id.btn_eight)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun AreBtnNineInView(){
+    fun btnNineTest(){
         onView(withId(R.id.btn_nine)).check(matches(ViewMatchers.isDisplayed()))
     }
 }

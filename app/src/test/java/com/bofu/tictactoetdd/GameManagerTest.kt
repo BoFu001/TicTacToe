@@ -26,4 +26,15 @@ class GameManagerTest {
         val currentPlayerMark = gameManager.currentPlayerMark
         Truth.assertThat(currentPlayerMark).isEqualTo("O")
     }
+
+    @Test
+    fun getGameState(){
+        val gameManager = GameManager()
+        val state = gameManager.state
+        state.forEach{row -> row
+            row.forEach { column -> column
+                Truth.assertThat(column).isEqualTo("O")
+            }
+        }
+    }
 }
