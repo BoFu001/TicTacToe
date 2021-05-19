@@ -12,5 +12,10 @@ class GameManagerTest {
         Truth.assertThat(currentPlayer).isEqualTo(1)
     }
 
-
+    @Test
+    fun initialPlayerMarkTest(){
+        val gameManager = GameManager()
+        val currentPlayerMark = gameManager.currentPlayerMark
+        Truth.assertThat(currentPlayerMark).isEqualTo("X")
+    }
 }
