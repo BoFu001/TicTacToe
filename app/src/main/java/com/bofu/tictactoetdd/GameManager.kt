@@ -13,7 +13,7 @@ class GameManager {
         intArrayOf(0, 0, 0)
     )
 
-    fun play() {
-        currentPlayer++
+    fun alternatePlayer() {
+        currentPlayer = 3 - currentPlayer
     }
 }

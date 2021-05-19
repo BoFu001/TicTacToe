@@ -26,14 +26,12 @@ class GameManagerTest {
     }
 
     @Test
-    fun playGameTest(){
-        val currentPlayerMark = gameManager.currentPlayerMark
-        gameManager.play()
-        Truth.assertThat(currentPlayerMark).isEqualTo("O")
-        gameManager.play()
-        Truth.assertThat(currentPlayerMark).isEqualTo("X")
-        gameManager.play()
-        Truth.assertThat(currentPlayerMark).isEqualTo("O")
+    fun alternatePlayerTest(){
+        Truth.assertThat(gameManager.currentPlayer).isEqualTo(1)
+        gameManager.alternatePlayer()
+        Truth.assertThat(gameManager.currentPlayer).isEqualTo(2)
+        gameManager.alternatePlayer()
+        Truth.assertThat(gameManager.currentPlayer).isEqualTo(1)
     }
 
     @Test
