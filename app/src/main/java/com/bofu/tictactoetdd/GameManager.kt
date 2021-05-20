@@ -7,11 +7,7 @@ class GameManager(val row: Int, val column: Int) {
     val currentPlayerMark: String
         get() = if (currentPlayer == 1) "X" else "O"
 
-    var state = arrayOf(
-        intArrayOf(0, 0, 0),
-        intArrayOf(0, 0, 0),
-        intArrayOf(0, 0, 0)
-    )
+    var stateManager = StateManager(row, column)
 
     fun alternatePlayer() {
         currentPlayer = 3 - currentPlayer
@@ -20,25 +16,25 @@ class GameManager(val row: Int, val column: Int) {
     fun detectWinCase(): RedLine? {
 
         // detect row
-        for (row in state.indices) {
-            val hasDetected = state[row].all { player -> player == currentPlayer }
+        for (row in stateManager.state.indices) {
+            val hasDetected = stateManager.state[row].all { player -> player == currentPlayer }
             if (hasDetected) return RedLine.values()[row]
         }
 
         // detect column
-        val stateRotated = rotation(state)
+        val stateRotated = rotation(stateManager.state)
         for (row in stateRotated.indices) {
             val hasDetected = stateRotated[row].all { player -> player == currentPlayer }
             if (hasDetected) return RedLine.values()[row + 3]
         }
 
         // detect diagonal left and right
-        val diagonalLeft = intArrayOf(0, 0, 0)
-        val diagonalRight = intArrayOf(0, 0, 0)
-        for (row in state.indices) {
-            for (column in state[row].indices) {
-                if (row == column){ diagonalLeft[row] = state[row][column] }
-                if (row == (state[row].lastIndex - column)){ diagonalRight[row] = state[row][column] }
+        val diagonalLeft = IntArray(column)
+        val diagonalRight = IntArray(column)
+        for (row in stateManager.state.indices) {
+            for (column in stateManager.state[row].indices) {
+                if (row == column){ diagonalLeft[row] = stateManager.state[row][column] }
+                if (row == (stateManager.state[row].lastIndex - column)){ diagonalRight[row] = stateManager.state[row][column] }
             }
         }
 
@@ -51,11 +47,8 @@ class GameManager(val row: Int, val column: Int) {
     }
 
     private fun rotation(state: Array<IntArray>): Array<IntArray>{
-        val stateRotated = arrayOf(
-            intArrayOf(0, 0, 0),
-            intArrayOf(0, 0, 0),
-            intArrayOf(0, 0, 0)
-        )
+
+        val stateRotated = StateManager(row, column).state
 
         for (row in state.indices) {
             for (column in state[row].indices) {
@@ -66,17 +59,13 @@ class GameManager(val row: Int, val column: Int) {
     }
 
     fun reset() {
-        state = arrayOf(
-            intArrayOf(0, 0, 0),
-            intArrayOf(0, 0, 0),
-            intArrayOf(0, 0, 0)
-        )
+        stateManager.reset()
     }
 
     fun play(coordinate: Coordinate): RedLine? {
 
         val (x, y) = coordinate
-        state[x][y] = currentPlayer
+        stateManager.state[x][y] = currentPlayer
         val redLine = detectWinCase()
         if(redLine == null){
             alternatePlayer()
@@ -85,6 +74,6 @@ class GameManager(val row: Int, val column: Int) {
     }
 
     fun isInProgress(): Boolean{
-        return state.any { row -> row.any { column -> column == 0 } }
+        return stateManager.state.any { row -> row.any { column -> column == 0 } }
     }
 }

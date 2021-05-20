@@ -53,21 +53,16 @@ class GameManagerTest {
     }
 
     @Test
-    fun getGameState(){
-        val state = gameManager.stateManager(row,column).state
+    fun gameStateManagerTest(){
+        val state = gameManager.stateManager.state
         val bool = state.all { row -> row.all { column -> column == 0 }}
         Truth.assertThat(bool).isEqualTo(true)
-//        state.forEach{row -> row
-//            row.forEach { column -> column
-//                Truth.assertThat(column).isEqualTo(0)
-//            }
-//        }
     }
 
     @Test
     fun resetTest(){
         gameManager.reset()
-        val state = gameManager.state
+        val state = gameManager.stateManager.state
         state.forEach{row -> row
             row.forEach { column -> column
                 Truth.assertThat(column).isEqualTo(0)
@@ -77,24 +72,24 @@ class GameManagerTest {
 
     @Test
     fun detectHorizontalWinCaseTest(){
-        for (column in gameManager.state[0].indices){
-            gameManager.state[0][column] = gameManager.currentPlayer
+        for (column in gameManager.stateManager.state[0].indices){
+            gameManager.stateManager.state[0][column] = gameManager.currentPlayer
         }
         val case1 = gameManager.detectWinCase()
         Truth.assertThat(case1).isEqualTo(RedLine.HORIZONTAL_UP)
 
         gameManager.reset()
 
-        for (column in gameManager.state[1].indices){
-            gameManager.state[1][column] = gameManager.currentPlayer
+        for (column in gameManager.stateManager.state[1].indices){
+            gameManager.stateManager.state[1][column] = gameManager.currentPlayer
         }
         val case2 = gameManager.detectWinCase()
         Truth.assertThat(case2).isEqualTo(RedLine.HORIZONTAL_MIDDLE)
 
         gameManager.reset()
 
-        for (column in gameManager.state[2].indices){
-            gameManager.state[2][column] = gameManager.currentPlayer
+        for (column in gameManager.stateManager.state[2].indices){
+            gameManager.stateManager.state[2][column] = gameManager.currentPlayer
         }
         val case3 = gameManager.detectWinCase()
         Truth.assertThat(case3).isEqualTo(RedLine.HORIZONTAL_DOWN)
@@ -102,10 +97,10 @@ class GameManagerTest {
 
     @Test
     fun detectVerticalWinCaseTest(){
-        for (row in gameManager.state.indices){
-            for(column in gameManager.state[row].indices){
+        for (row in gameManager.stateManager.state.indices){
+            for(column in gameManager.stateManager.state[row].indices){
                 if (column == 0){
-                    gameManager.state[row][column] = gameManager.currentPlayer
+                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
@@ -114,10 +109,10 @@ class GameManagerTest {
 
         gameManager.reset()
 
-        for (row in gameManager.state.indices){
-            for(column in gameManager.state[row].indices){
+        for (row in gameManager.stateManager.state.indices){
+            for(column in gameManager.stateManager.state[row].indices){
                 if (column == 1){
-                    gameManager.state[row][column] = gameManager.currentPlayer
+                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
@@ -126,10 +121,10 @@ class GameManagerTest {
 
         gameManager.reset()
 
-        for (row in gameManager.state.indices){
-            for(column in gameManager.state[row].indices){
+        for (row in gameManager.stateManager.state.indices){
+            for(column in gameManager.stateManager.state[row].indices){
                 if (column == 2){
-                    gameManager.state[row][column] = gameManager.currentPlayer
+                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
@@ -140,10 +135,10 @@ class GameManagerTest {
 
     @Test
     fun detectLeftDiagonalWinCaseTest(){
-        for (row in gameManager.state.indices){
-            for(column in gameManager.state[row].indices){
+        for (row in gameManager.stateManager.state.indices){
+            for(column in gameManager.stateManager.state[row].indices){
                 if (column == row){
-                    gameManager.state[row][column] = gameManager.currentPlayer
+                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
@@ -153,10 +148,10 @@ class GameManagerTest {
 
     @Test
     fun detectRightDiagonalWinCaseTest(){
-        for (row in gameManager.state.indices){
-            for(column in gameManager.state[row].indices){
-                if (row == gameManager.state[row].lastIndex - column){
-                    gameManager.state[row][column] = gameManager.currentPlayer
+        for (row in gameManager.stateManager.state.indices){
+            for(column in gameManager.stateManager.state[row].indices){
+                if (row == gameManager.stateManager.state[row].lastIndex - column){
+                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
                 }
             }
         }
@@ -169,7 +164,7 @@ class GameManagerTest {
         val coordinate1 = Coordinate(0,0)
         val detectedLine1 = gameManager.play(coordinate1)
 
-        val sign1 = gameManager.state[coordinate1.x][coordinate1.y]
+        val sign1 = gameManager.stateManager.state[coordinate1.x][coordinate1.y]
         if (detectedLine1 != null){
             Truth.assertThat(sign1).isEqualTo(gameManager.currentPlayer)
         }
@@ -178,7 +173,7 @@ class GameManagerTest {
         val coordinate2 = Coordinate(1,1)
         val detectedLine2 = gameManager.play(coordinate2)
 
-        val sign2 = gameManager.state[coordinate2.x][coordinate2.y]
+        val sign2 = gameManager.stateManager.state[coordinate2.x][coordinate2.y]
         if (detectedLine2 != null) {
             Truth.assertThat(sign2).isEqualTo(gameManager.currentPlayer)
         }
@@ -191,15 +186,15 @@ class GameManagerTest {
         Truth.assertThat(isInProgress1).isEqualTo(true)
 
 
-        for (row in gameManager.state.indices){
-            for(column in gameManager.state[row].indices){
-                gameManager.state[row][column] = 1
+        for (row in gameManager.stateManager.state.indices){
+            for(column in gameManager.stateManager.state[row].indices){
+                gameManager.stateManager.state[row][column] = 1
             }
         }
         val isInProgress2 = gameManager.isInProgress()
         Truth.assertThat(isInProgress2).isEqualTo(false)
 
-        gameManager.state[0][0] = 0
+        gameManager.stateManager.state[0][0] = 0
         val isInProgress3 = gameManager.isInProgress()
         Truth.assertThat(isInProgress3).isEqualTo(true)
     }
