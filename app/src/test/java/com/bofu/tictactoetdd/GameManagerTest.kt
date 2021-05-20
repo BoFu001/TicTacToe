@@ -54,12 +54,14 @@ class GameManagerTest {
 
     @Test
     fun getGameState(){
-        val state = gameManager.state
-        state.forEach{row -> row
-            row.forEach { column -> column
-                Truth.assertThat(column).isEqualTo(0)
-            }
-        }
+        val state = gameManager.stateManager(row,column).state
+        val bool = state.all { row -> row.all { column -> column == 0 }}
+        Truth.assertThat(bool).isEqualTo(true)
+//        state.forEach{row -> row
+//            row.forEach { column -> column
+//                Truth.assertThat(column).isEqualTo(0)
+//            }
+//        }
     }
 
     @Test
