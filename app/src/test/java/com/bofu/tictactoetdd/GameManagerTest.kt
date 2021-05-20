@@ -15,6 +15,14 @@ class GameManagerTest {
     }
 
     @Test
+    fun gameManagerTest(){
+        val row = 3
+        val column = 3
+        Truth.assertThat(gameManager.row).isEqualTo(row)
+        Truth.assertThat(gameManager.column).isEqualTo(column)
+    }
+
+    @Test
     fun initialPlayerTest(){
         val currentPlayer = gameManager.currentPlayer
         Truth.assertThat(currentPlayer).isEqualTo(1)
