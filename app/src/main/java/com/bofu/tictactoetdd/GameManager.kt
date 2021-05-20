@@ -1,6 +1,6 @@
 package com.bofu.tictactoetdd
 
-class GameManager {
+class GameManager(val row: Int, val column: Int) {
 
     var currentPlayer = 1
 

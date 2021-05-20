@@ -8,16 +8,16 @@ import org.junit.Test
 class GameManagerTest {
 
     private lateinit var gameManager: GameManager
+    private val row = 3
+    private val column = 3
 
     @Before
     fun initializeGameManager(){
-        gameManager = GameManager()
+        gameManager = GameManager(row,column)
     }
 
     @Test
     fun gameManagerTest(){
-        val row = 3
-        val column = 3
         Truth.assertThat(gameManager.row).isEqualTo(row)
         Truth.assertThat(gameManager.column).isEqualTo(column)
     }
