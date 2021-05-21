@@ -5,5 +5,7 @@ This is an app totally written in Kotlin with TDD (Test Driven Development) appr
 
 To compile and run this code you just need Android Studio and its simulator or a real Android device.
 
-minSdkVersion 17
-targetSdkVersion 30
+minSdkVersion 17 and targetSdkVersion 30
+
+## :camera_flash: Screenshots
+<img src="/results/screenshot_1.png" width="260">
