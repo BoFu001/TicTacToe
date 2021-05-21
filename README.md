@@ -8,4 +8,4 @@ To compile and run this code you just need Android Studio and its simulator or a
 minSdkVersion 17 and targetSdkVersion 30
 
 ## :camera_flash: Screenshots
-<img src="/results/screenshot_1.png" width="260">
+![screenshot_1](https://user-images.githubusercontent.com/40369868/119143486-f0c7c380-ba47-11eb-9029-4c2973254816.png)
