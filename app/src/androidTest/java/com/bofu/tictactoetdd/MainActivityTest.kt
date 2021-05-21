@@ -1,101 +1,55 @@
 package com.bofu.tictactoetdd
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import com.bofu.tictactoetdd.activities.MainActivity
+import com.bofu.tictactoetdd.adapters.MainAdapter
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
-
 @RunWith(AndroidJUnit4ClassRunner::class)
-class MainActivityTest {
+class MainActivityTest{
 
     @get: Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-
     @Test
-    fun btnOneTest(){
-        onView(withId(R.id.btn_one)).check(matches(isDisplayed()))
+    fun recyclerview_test(){
+        onView(withId(R.id.main_recycler_view)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(0,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(1,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(2,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(3,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(4,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(5,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(6,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(7,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(8,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(9,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(10,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(11,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(12,click()))
+
+        onView(withId(R.id.btn_new_game)).perform(click())
+
+        onView(withId(R.id.main_recycler_view)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(3,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(2,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(6,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(5,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(9,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(8,click()))
+        onView(withId(R.id.main_recycler_view)).perform(actionOnItemAtPosition<MainAdapter.MainHolder>(12,click()))
+
+        onView(withId(R.id.btn_new_game)).perform(click())
     }
 
-    @Test
-    fun btnTwoTest(){
-        onView(withId(R.id.btn_two)).check(matches(isDisplayed()))
-    }
 
-    @Test
-    fun btnThreeTest(){
-        onView(withId(R.id.btn_three)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnFourTest(){
-        onView(withId(R.id.btn_four)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnFiveTest(){
-        onView(withId(R.id.btn_five)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnSixTest(){
-        onView(withId(R.id.btn_six)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnSevenTest(){
-        onView(withId(R.id.btn_seven)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnEightTest(){
-        onView(withId(R.id.btn_eight)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnNineTest(){
-        onView(withId(R.id.btn_nine)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun btnClickTest(){
-        onView(withId(R.id.btn_one)).perform(click())
-        onView(withId(R.id.btn_one)).check(matches(withText("X")))
-        onView(withId(R.id.btn_two)).perform(click())
-        onView(withId(R.id.btn_two)).check(matches(withText("O")))
-        onView(withId(R.id.btn_three)).perform(click())
-        onView(withId(R.id.btn_three)).check(matches(withText("X")))
-        onView(withId(R.id.btn_four)).perform(click())
-        onView(withId(R.id.btn_four)).check(matches(withText("O")))
-        onView(withId(R.id.btn_five)).perform(click())
-        onView(withId(R.id.btn_five)).check(matches(withText("X")))
-        onView(withId(R.id.btn_six)).perform(click())
-        onView(withId(R.id.btn_six)).check(matches(withText("O")))
-        onView(withId(R.id.btn_seven)).perform(click())
-        onView(withId(R.id.btn_seven)).check(matches(withText("X")))
-    }
-
-    @Test
-    fun btnNewGameVisibilityTest(){
-        onView(withId(R.id.btn_new_game)).check(matches(
-            withEffectiveVisibility(Visibility.INVISIBLE)
-        ))
-        onView(withId(R.id.btn_one)).perform(click())
-        onView(withId(R.id.btn_two)).perform(click())
-        onView(withId(R.id.btn_four)).perform(click())
-        onView(withId(R.id.btn_five)).perform(click())
-        onView(withId(R.id.btn_seven)).perform(click())
-        onView(withId(R.id.btn_new_game)).check(matches(
-            withEffectiveVisibility(Visibility.VISIBLE)
-        ))
-    }
 }

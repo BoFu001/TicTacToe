@@ -1,11 +1,14 @@
 package com.bofu.tictactoetdd
 
+import com.bofu.tictactoetdd.models.Coordinate
+import com.google.gson.Gson
+
 class GameManager(val row: Int, val column: Int) {
 
     var currentPlayer = 1
 
     val currentPlayerMark: String
-        get() = if (currentPlayer == 1) "X" else "O"
+        get() = if (currentPlayer == 1) Mark.X.toString() else Mark.O.toString()
 
     var stateManager = StateManager(row, column)
 
@@ -13,19 +16,34 @@ class GameManager(val row: Int, val column: Int) {
         currentPlayer = 3 - currentPlayer
     }
 
-    fun detectWinCase(): RedLine? {
+    fun detectWinCase(): Boolean {
 
         // detect row
         for (row in stateManager.state.indices) {
             val hasDetected = stateManager.state[row].all { player -> player == currentPlayer }
-            if (hasDetected) return RedLine.values()[row]
+            if (hasDetected) {
+                for (column in stateManager.picture[row].indices){
+                    stateManager.picture[row][column] = Type.HORIZONTAL
+                }
+                return true
+            }
         }
 
         // detect column
         val stateRotated = rotation(stateManager.state)
         for (row in stateRotated.indices) {
             val hasDetected = stateRotated[row].all { player -> player == currentPlayer }
-            if (hasDetected) return RedLine.values()[row + 3]
+            if (hasDetected) {
+
+                for(r in stateManager.picture.indices){
+                    for(c in stateManager.picture[r].indices){
+                        if(c == row){
+                            stateManager.picture[r][c] = Type.VERTICAL
+                        }
+                    }
+                }
+                return true
+            }
         }
 
         // detect diagonal left and right
@@ -33,17 +51,39 @@ class GameManager(val row: Int, val column: Int) {
         val diagonalRight = IntArray(column)
         for (row in stateManager.state.indices) {
             for (column in stateManager.state[row].indices) {
-                if (row == column){ diagonalLeft[row] = stateManager.state[row][column] }
-                if (row == (stateManager.state[row].lastIndex - column)){ diagonalRight[row] = stateManager.state[row][column] }
+                if (row == column){
+                    diagonalLeft[row] = stateManager.state[row][column]
+                }
+                if (row == (stateManager.state[row].lastIndex - column)){
+                    diagonalRight[row] = stateManager.state[row][column]
+                }
             }
         }
 
         val hasDetectedLeft = diagonalLeft.all { player -> player == currentPlayer }
-        if (hasDetectedLeft) return RedLine.DIAGONAL_LEFT
+        if (hasDetectedLeft) {
+            for(r in stateManager.picture.indices){
+                for(c in stateManager.picture[r].indices){
+                    if(c == r){
+                        stateManager.picture[r][c] = Type.DIAGONAL_LEFT
+                    }
+                }
+            }
+            return true
+        }
         val hasDetectedRight = diagonalRight.all { player -> player == currentPlayer }
-        if (hasDetectedRight) return RedLine.DIAGONAL_RIGHT
+        if (hasDetectedRight) {
+            for(r in stateManager.picture.indices){
+                for(c in stateManager.picture[r].indices){
+                    if((stateManager.picture[r].lastIndex - c) == r){
+                        stateManager.picture[r][c] = Type.DIAGONAL_RIGHT
+                    }
+                }
+            }
+            return true
+        }
 
-        return null
+        return false
     }
 
     private fun rotation(state: Array<IntArray>): Array<IntArray>{
@@ -60,17 +100,21 @@ class GameManager(val row: Int, val column: Int) {
 
     fun reset() {
         stateManager.reset()
+        currentPlayer = 1
     }
 
-    fun play(coordinate: Coordinate): RedLine? {
-
+    fun play(coordinate: Coordinate): Boolean {
         val (x, y) = coordinate
-        stateManager.state[x][y] = currentPlayer
-        val redLine = detectWinCase()
-        if(redLine == null){
-            alternatePlayer()
+        if (stateManager.state[x][y] == 0){
+            stateManager.state[x][y] = currentPlayer
+
+            println("play: " + Gson().toJson(stateManager.state))
+            return true
+        } else {
+
+            println("play: " + Gson().toJson(stateManager.state))
+            return false
         }
-        return redLine
     }
 
     fun isInProgress(): Boolean{

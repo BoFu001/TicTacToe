@@ -1,5 +1,6 @@
 package com.bofu.tictactoetdd
 
+import com.bofu.tictactoetdd.models.Coordinate
 import com.google.common.truth.Truth
 import com.google.gson.Gson
 import org.junit.Before
@@ -72,91 +73,101 @@ class GameManagerTest {
 
     @Test
     fun detectHorizontalWinCaseTest(){
-        for (column in gameManager.stateManager.state[0].indices){
-            gameManager.stateManager.state[0][column] = gameManager.currentPlayer
-        }
-        val case1 = gameManager.detectWinCase()
-        Truth.assertThat(case1).isEqualTo(RedLine.HORIZONTAL_UP)
 
-        gameManager.reset()
+        val coordinate01 = Coordinate(0,0)
+        val coordinate02 = Coordinate(0,1)
+        val coordinate03 = Coordinate(0,2)
+        gameManager.play(coordinate01)
+        gameManager.play(coordinate02)
+        gameManager.play(coordinate03)
 
-        for (column in gameManager.stateManager.state[1].indices){
-            gameManager.stateManager.state[1][column] = gameManager.currentPlayer
-        }
-        val case2 = gameManager.detectWinCase()
-        Truth.assertThat(case2).isEqualTo(RedLine.HORIZONTAL_MIDDLE)
+        val detected = gameManager.detectWinCase()
+        Truth.assertThat(detected).isEqualTo(true)
 
-        gameManager.reset()
-
-        for (column in gameManager.stateManager.state[2].indices){
-            gameManager.stateManager.state[2][column] = gameManager.currentPlayer
-        }
-        val case3 = gameManager.detectWinCase()
-        Truth.assertThat(case3).isEqualTo(RedLine.HORIZONTAL_DOWN)
+        val picture = gameManager.stateManager.picture
+        val typeLine = picture[0].all { type -> type == Type.HORIZONTAL }
+        Truth.assertThat(typeLine).isEqualTo(true)
     }
 
     @Test
     fun detectVerticalWinCaseTest(){
-        for (row in gameManager.stateManager.state.indices){
-            for(column in gameManager.stateManager.state[row].indices){
-                if (column == 0){
-                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
+
+        val coordinate01 = Coordinate(0,0)
+        val coordinate02 = Coordinate(1,0)
+        val coordinate03 = Coordinate(2,0)
+        gameManager.play(coordinate01)
+        gameManager.play(coordinate02)
+        gameManager.play(coordinate03)
+
+        val detected = gameManager.detectWinCase()
+        Truth.assertThat(detected).isEqualTo(true)
+
+        val picture = gameManager.stateManager.picture
+        val intArray = IntArray(column)
+        for (row in picture.indices){
+            for (column in picture[row].indices){
+                if(column == 0){
+                    intArray[row] = picture[row][column]
                 }
             }
         }
-        val case1 = gameManager.detectWinCase()
-        Truth.assertThat(case1).isEqualTo(RedLine.VERTICAL_LEFT)
-
-        gameManager.reset()
-
-        for (row in gameManager.stateManager.state.indices){
-            for(column in gameManager.stateManager.state[row].indices){
-                if (column == 1){
-                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
-                }
-            }
-        }
-        val case2 = gameManager.detectWinCase()
-        Truth.assertThat(case2).isEqualTo(RedLine.VERTICAL_MIDDLE)
-
-        gameManager.reset()
-
-        for (row in gameManager.stateManager.state.indices){
-            for(column in gameManager.stateManager.state[row].indices){
-                if (column == 2){
-                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
-                }
-            }
-        }
-        val case3 = gameManager.detectWinCase()
-        Truth.assertThat(case3).isEqualTo(RedLine.VERTICAL_RIGHT)
-
+        println(Gson().toJson(intArray))
+        val typeLine = intArray.all { type -> type == Type.VERTICAL }
+        Truth.assertThat(typeLine).isEqualTo(true)
     }
 
     @Test
     fun detectLeftDiagonalWinCaseTest(){
-        for (row in gameManager.stateManager.state.indices){
-            for(column in gameManager.stateManager.state[row].indices){
+
+        val coordinate01 = Coordinate(0,0)
+        val coordinate02 = Coordinate(1,1)
+        val coordinate03 = Coordinate(2,2)
+        gameManager.play(coordinate01)
+        gameManager.play(coordinate02)
+        gameManager.play(coordinate03)
+
+        val detected = gameManager.detectWinCase()
+        Truth.assertThat(detected).isEqualTo(true)
+
+        val picture = gameManager.stateManager.picture
+        val intArray = IntArray(column)
+
+        for (row in picture.indices){
+            for(column in picture[row].indices){
                 if (column == row){
-                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
+                    intArray[row]= picture[row][column]
                 }
             }
         }
-        val case3 = gameManager.detectWinCase()
-        Truth.assertThat(case3).isEqualTo(RedLine.DIAGONAL_LEFT)
+        val typeLine = intArray.all { type -> type == Type.DIAGONAL_LEFT }
+        Truth.assertThat(typeLine).isEqualTo(true)
     }
 
     @Test
     fun detectRightDiagonalWinCaseTest(){
-        for (row in gameManager.stateManager.state.indices){
-            for(column in gameManager.stateManager.state[row].indices){
-                if (row == gameManager.stateManager.state[row].lastIndex - column){
-                    gameManager.stateManager.state[row][column] = gameManager.currentPlayer
+
+        val coordinate01 = Coordinate(0,2)
+        val coordinate02 = Coordinate(1,1)
+        val coordinate03 = Coordinate(2,0)
+        gameManager.play(coordinate01)
+        gameManager.play(coordinate02)
+        gameManager.play(coordinate03)
+
+        val detected = gameManager.detectWinCase()
+        Truth.assertThat(detected).isEqualTo(true)
+
+        val picture = gameManager.stateManager.picture
+        val intArray = IntArray(column)
+
+        for (row in picture.indices){
+            for(column in picture[row].indices){
+                if (row == picture[row].lastIndex - column){
+                    intArray[row] = picture[row][column]
                 }
             }
         }
-        val case4 = gameManager.detectWinCase()
-        Truth.assertThat(case4).isEqualTo(RedLine.DIAGONAL_RIGHT)
+        val typeLine = intArray.all { type -> type == Type.DIAGONAL_RIGHT }
+        Truth.assertThat(typeLine).isEqualTo(true)
     }
 
     @Test
