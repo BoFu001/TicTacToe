@@ -11,7 +11,7 @@ class MainViewModel(row: Int, column: Int) : ViewModel() {
     private var gameManager: GameManager = GameManager(row, column)
     val liveData = MutableLiveData<ArrayList<Int>>()
     val showNewGameBtn = MutableLiveData(false)
-    val message = MutableLiveData<String>()
+    val message = MutableLiveData("")
     val linePicture = MutableLiveData<ArrayList<Int>>()
 
     init {
@@ -66,5 +66,7 @@ class MainViewModel(row: Int, column: Int) : ViewModel() {
     fun reset(){
         gameManager.reset()
         synchronizeData()
+        message.value = ""
+        showNewGameBtn.value = false
     }
 }

@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity() {
             showNewGameBtn(it)
         })
         mainViewModel.message.observe(this, {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            if(it != ""){
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
         })
         mainViewModel.linePicture.observe(this, {
-            println("picture: " + Gson().toJson(it))
             mainAdaptorUpdate()
         })
     }
