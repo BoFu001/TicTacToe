@@ -1,17 +1,20 @@
 package com.bofu.tictactoetdd.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bofu.tictactoetdd.viewModels.MainViewModel
-import com.bofu.tictactoetdd.viewModels.MainViewModelFactory
 import com.bofu.tictactoetdd.R
 import com.bofu.tictactoetdd.adapters.MainAdapter
-import com.google.gson.Gson
+import com.bofu.tictactoetdd.viewModels.MainViewModel
+import com.bofu.tictactoetdd.viewModels.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +34,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun mainViewModelSetup(){
-        val viewModelFactory = MainViewModelFactory(row,column)
-        mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        mainViewModel = MainViewModelFactory(row,column,application).create(MainViewModel::class.java)
         mainViewModel.liveData.observe(this, {
             mainAdaptorUpdate()
         })

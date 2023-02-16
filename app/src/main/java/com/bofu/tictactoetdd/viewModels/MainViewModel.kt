@@ -1,12 +1,14 @@
 package com.bofu.tictactoetdd.viewModels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bofu.tictactoetdd.GameManager
 import com.bofu.tictactoetdd.models.Coordinate
 
 
-class MainViewModel(row: Int, column: Int) : ViewModel() {
+class MainViewModel(row: Int, column: Int, application: Application) : AndroidViewModel(application) {
 
     private var gameManager: GameManager = GameManager(row, column)
     val liveData = MutableLiveData<ArrayList<Int>>()
